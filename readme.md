@@ -56,9 +56,9 @@ tags:
 
 [Remix](https://remix.ethereum.org/)是我编写智能合约需要使用到的。
 
-### 打开 Etherscan
+### 打开 Goerli Etherscan
 
-[Etherscan](https://etherscan.io/) 可以查看我们稍后要的部署合约，转账等链上交互信息。
+[Goerli Etherscan](https://goerli.etherscan.io/) 可以查看我们稍后要的部署合约，转账等链上交互信息。
 准备工作完成后，我们就可以开始编写智能合约了。
 
 ## 编写 ERC20 Token 智能合约
@@ -97,7 +97,7 @@ contract MyToken is ERC20 {
 
 编写好智能合约后，在链上发行代币变得非常简单。
 
-- 我们发行属于我们的第一个代币。
+- 我们发行属于自己的第一个代币。
 - `mint 1000`枚代币给自己。
 
 在`Remix`上编译好`MyToken`合约
@@ -105,11 +105,10 @@ contract MyToken is ERC20 {
 切换到部署栏，选择 Injected Provider - MetaMask。用 `MetaMask` 进行部署操作
 ![切换到部署](./img/切换到部署.png)
 在部署栏输入构造函数的参数，`initialSupply`设为`1000000000000000000000`，然后点击`deploy`键进行部署。
+注意：solidity 的单位有 `wei,gwei,ether`。并且 solidity 是没有小数的，solidity 代码里的运算我们需要用 `wei` 单位，这里我们希望 mint 1000 枚代币，相当于 1000 `ether`。所以我们需要把 `ether` 转化为 `wei` 单位，对应的就是 1000000000000000000000。[solidity 单位转换工具](https://eth-converter.com/)
 ![部署](./img/部署.png)
 弹出 `MetaMask` 后，确认区块网络是否为 Goerli 网络，然后点击确定
 ![确定部署](./img/确定部署.png)
-注意 solidity 的单位有 `wei,gwei,ether`。并且 solidity 是没有小数的，solidity 代码里的运算我们需要用 `wei` 单位，这里我们希望 mint 1000 枚代币，相当于 1000 `ether`。所以我们需要把 `ether` 转化为 `wei` 单位，对应的就是 1000000000000000000000。
-[solidity 单位转换工具](https://eth-converter.com/)
 部署成功之后，我们可以查看智能合约的地址和里面的函数方法
 ![智能合约](./img/智能合约.png)
 
@@ -123,11 +122,11 @@ contract MyToken is ERC20 {
 - 把代币转给其他地址。
 - 在`Etherscan`上查看链上信息。
 
-首先我们在`Remix`中找到 `balanceOf` 方法，该方法可以帮我们查询某个钱包地址的代币余额，在这里我们输入刚刚部署这个合约的钱包地址。
+首先我们在`Remix`中找到 `balanceOf` 方法，该方法可以帮我们查询某个钱包地址的代币余额，在这里我们输入刚刚部署这个合约的钱包地址，然后点击 call
 ![查询余额](./img/查询余额.png)
-得到的结果是 1000000000000000000000，这里单位依然是 wei，我们把 wei 转换成 ether，结果就是 1000。所以我们这个钱包地址有 1000 枚代币。
+得到的结果是 1000000000000000000000，这里单位是 wei，我们把 wei 转换成 ether，结果就是 1000。所以我们这个钱包地址有 1000 枚代币。
 
-然后找到 `transfer` 方法，该方法可以帮我们把代币转账给别的地址。这里我们 to 输入另外一个钱包地址，amount 输入 99000000000000000000(wei)，意思是向另外一个地址转账 99 枚代币。输入好之后，点击 transfer，MetaMask 弹出选择确定。
+然后找到 `transfer` 方法，该方法可以帮我们把代币转账给别的地址。这里我们 to 输入另外一个钱包地址，amount 输入 99000000000000000000，意思是向另外一个地址转账 99 枚代币。输入好之后，点击 transfer，MetaMask 弹出选择确定。
 ![代币转账](./img/代币转账.png)
 成功之后，跟刚刚一样调用`balanceOf` 方法，查看代币是否转移。
 
