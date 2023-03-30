@@ -1,0 +1,11 @@
+{
+  "name": "token",
+  "version": "1.0.0",
+  "description": "--- title: 01. ERC20 Token tags:   - solidity   - OpenZeppelin   - Remix   - MetaMask   - Etherscan ---",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
